@@ -5,8 +5,7 @@
   <img class="2" src="./assets/pictures/roza.jpg" width="100" height="100" (click)="this.myfunction('Róża')"/>
 
 </div>
-<p><a href="http://localhost:4200/start">reset</a></p>
-<p><a href="admin">admin</a></p>
+
 <div class="container">
   <h2> wyplata : {{sum}} </h2>
   <input hidden type="text" class="form-control" id="name" required [(ngModel)]="sum">
@@ -14,7 +13,7 @@
 
 <div class="calculator-keys">
   <button (click)="key('7')">7</button>
-  <button (click)="key('8')">8</button>
+  <button (click)="key('8')"> 8</button>
   <button (click)="key('9')">9</button>
   <button (click)="key('4')">4</button>
   <button (click)="key('5')">5</button>
@@ -22,15 +21,14 @@
   <button (click)="key('1')">1</button>
   <button (click)="key('2')">2</button>
   <button (click)="key('3')">3</button>
-  <button (click)="key('0')">0</button>
-  <button (click)="clear()">AC</button>
-  <button class="key--equal" (click)="prt()">Wypłać</button>
+  <button (click)="key('0')">0</button><br>
+  <button (click)="clear()">AC</button> <br>
+  <button class="withdraw" (click)="prt()">Wypłać</button>
 </div>
 
-<button type="button" (click)="this.prt()">
-  Print PDF
-</button>
+
 
 <div class="result" *ngIf="kid.length != 0">
   <p>{{kid}} ma na koncie :  {{balance}} PLN  <button (click)="this.speak1()">muf</button></p>
 </div>
+

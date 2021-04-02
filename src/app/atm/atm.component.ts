@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import { AccountDataService} from './account-data.service';
 import {AccountResultModel} from './accountResult.model';
 import {take} from 'rxjs/operators';
@@ -11,21 +11,24 @@ import printJS from 'print-js';
   templateUrl: './atm.component.html',
   styleUrls: ['./atm.component.css']
 })
-export class AtmComponent implements OnInit {
+export class AtmComponent implements OnInit, OnDestroy {
 
+  buffer = [];
   name = 'Kids Banka';
   utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
   isTimeForThisComponent: boolean;
-  public kid: string;
+  kid: string;
   balance: number;
   id: number;
-  public accountResults: AccountResultModel [] = [];
+  accountResults: AccountResultModel[] = [];
   value: string;
   canWithdraw = false;
   banknots = [200, 100, 50, 20, 10];
   withdrawArr: number[];
   prints: string[] = [];
   d = new Date();
+  cardId: string;
+  pin: number;
 
   @Output()
   public selectSum: EventEmitter<number> = new EventEmitter<number>();
@@ -43,7 +46,7 @@ export class AtmComponent implements OnInit {
   public key(value) {
     if ((+this.sum + value) > 1000){
       alert('max 1000 pln');
-    }else if (value == 0 && this.sum.length == 0){
+    }else if (value === 0 && this.sum.length === 0){
       this.sum = '';
     }
     else {
@@ -52,7 +55,7 @@ export class AtmComponent implements OnInit {
   }
 
   public isdivideBy10() {
-    return +this.sum % 10 == 0;
+    return +this.sum % 10 === 0;
   }
 
   public clear() {
@@ -60,22 +63,50 @@ export class AtmComponent implements OnInit {
   }
 
   public myfunction(message: string) {
-
     let i: number;
-
     for (i = 0; i < 2; i++) {     // json length ????
       if (message === this.accountResults[i].name) {
         this.balance = this.accountResults[i].balance;
         this.kid = this.accountResults[i].name;
         this.id = i;
+        this.cardId = this.accountResults[i].cardId;
       }
     }
   }
 
   ngOnInit(): void {
     this.loadData();
+    window.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
+  ngOnDestroy(): void {
+  window.removeEventListener('keydown', this.handleKeyDown, true);
+  }
+
+   handleKeyDown(event: KeyboardEvent) {
+   const enteredKey = event.key.toLowerCase();
+   const acceptedCharMatrix = ['a', '2', '0', '8', '6', '3', '4', '5', 'f', '1', '7', 'd'];
+   this.buffer = acceptedCharMatrix.includes(enteredKey) ? [...this.buffer, enteredKey] : this.buffer;
+   if (enteredKey === 'enter') {
+     console.log(this.buffer);
+     this.checkCard(this.buffer.join(''));
+   }
+ }
+
+  checkCard(cardNumber: string) {
+    console.log(cardNumber);
+    for (let i = 0; i < 3; i++) {     // json length ????
+      if (cardNumber === this.accountResults[i].cardId) {
+        this.balance = this.accountResults[i].balance;
+        this.kid = this.accountResults[i].name;
+        this.id = i;
+        this.name = this.accountResults[i].name;
+        this.pin = this.accountResults[i].pin;
+      }
+
+      this.buffer = [];
+    }
+  }
   public isMoreThan() {
     return +this.sum > 1000;
   }
@@ -160,5 +191,7 @@ export class AtmComponent implements OnInit {
       console.error('An error occurred :', e);
     });
   }
+
+
 
 }
