@@ -3,5 +3,5 @@ export interface IAccountResultDto {
   name: string;
   balance: number;
   cardId: string;
-  pin: number;
+  pin: string;
 }

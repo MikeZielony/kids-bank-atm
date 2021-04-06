@@ -28,7 +28,7 @@ export class AtmComponent implements OnInit, OnDestroy {
   prints: string[] = [];
   d = new Date();
   cardId: string;
-  pin: number;
+  pin: string;
 
   @Output()
   public selectSum: EventEmitter<number> = new EventEmitter<number>();
@@ -85,7 +85,7 @@ export class AtmComponent implements OnInit, OnDestroy {
 
    handleKeyDown(event: KeyboardEvent) {
    const enteredKey = event.key.toLowerCase();
-   const acceptedCharMatrix = ['a', '2', '0', '8', '6', '3', '4', '5', 'f', '1', '7', 'd'];
+   const acceptedCharMatrix = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'f'];
    this.buffer = acceptedCharMatrix.includes(enteredKey) ? [...this.buffer, enteredKey] : this.buffer;
    if (enteredKey === 'enter') {
      console.log(this.buffer);
@@ -95,12 +95,12 @@ export class AtmComponent implements OnInit, OnDestroy {
 
   checkCard(cardNumber: string) {
     console.log(cardNumber);
-    for (let i = 0; i < 3; i++) {     // json length ????
+    for (let i = 0; i < 6; i++) {     // json length ????
       if (cardNumber === this.accountResults[i].cardId) {
         this.balance = this.accountResults[i].balance;
         this.kid = this.accountResults[i].name;
         this.id = i;
-        this.name = this.accountResults[i].name;
+        this.kid = this.accountResults[i].name;
         this.pin = this.accountResults[i].pin;
       }
 

@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { AtmComponent } from './atm/atm.component';
 import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './atm/app-routing.module';
+import { StartComponent } from './atm/start/start.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AtmComponent
+    AtmComponent,
+    StartComponent
   ],
   imports: [
     BrowserModule,

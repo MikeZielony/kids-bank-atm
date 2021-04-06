@@ -5,7 +5,7 @@ export class AccountResultModel {
   public name: string;
   public balance: number;
   public cardId: string;
-  public pin: number;
+  public pin: string;
 
   constructor(input: IAccountResultDto) {
     this.id = input.id;
