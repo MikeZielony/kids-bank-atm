@@ -1,0 +1,17 @@
+<div class="form-control">
+  <input  type="password"   required [(ngModel)]="EntryPin">
+</div><br><br>
+<div class="calculator-keys">
+  <button (click)="service.key('7')">7</button>
+  <button (click)="service.key('8')"> 8</button>
+  <button (click)="service.key('9')">9</button>
+  <button (click)="service.key('4')">4</button>
+  <button (click)="service.key('5')">5</button>
+  <button (click)="service.key('6')">6</button>
+  <button (click)="service.key('1')">1</button>
+  <button (click)="service.key('2')">2</button>
+  <button (click)="service.key('3')">3</button>
+  <button (click)="service.key('0')">0</button><br>
+  <button (click)="service.clear()">AC</button> <br>
+  <button class="withdraw" (click)="service.clear()">Ok</button>
+</div>

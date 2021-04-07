@@ -88,7 +88,7 @@ export class StartComponent implements OnInit {
       });
   }
 
-  public checkPin() {
+ /* public checkPin() {
     if (this.EntryPin === this.pin ){
       this.accountDataService.isUserLogged = true;
       console.log(this.isUserLogged);
@@ -101,14 +101,8 @@ export class StartComponent implements OnInit {
       console.log(this.isUserLogged);
       this.accountDataService.isUserLogged = false;
     }
-  }
+  }*/
 
-  public key(value) {
-      this.EntryPin = this.EntryPin + value;
-    }
 
-  public clear() {
-    this.EntryPin = '';
-  }
 
 }
