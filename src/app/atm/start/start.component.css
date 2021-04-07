@@ -45,3 +45,16 @@
 .container img {
   width: 50px;
 }
+
+.first {
+  text-align: center;
+}
+
+.second {
+  text-align: center;
+}
+
+.form-control {
+  display: flex;
+  justify-content: center;
+}

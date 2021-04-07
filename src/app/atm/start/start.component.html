@@ -1,13 +1,13 @@
 <div class="all">
 
-</div><p>Przyłóż swoją kartę</p>
+</div><p class="first">Przyłóż swoją kartę</p>
 
 
 <div class="result" *ngIf="kid.length != 0">
-  <p>{{kid}} podaj swoj pin :   </p>
-  <div>
-  <input  type="password" class="form-control" id="pin" required [(ngModel)]="EntryPin">
-  </div>
+  <p class="second">{{kid}} podaj swoj pin :   </p>
+  <div class="form-control">
+  <input  type="password"   required [(ngModel)]="EntryPin">
+  </div><br>
 </div>
 <div class="calculator-keys">
   <button (click)="key('7')">7</button>
