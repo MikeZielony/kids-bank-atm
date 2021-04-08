@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {AccountResultModel} from '../../models/accountResult.model';
 import {AccountDataService} from '../services/account-data.service';
 import {take} from 'rxjs/operators';
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.css']
 })
-export class StartComponent implements OnInit {
+export class StartComponent implements OnInit, OnDestroy {
 
   buffer = [];
   accountResults: AccountResultModel[] = [];
@@ -33,7 +33,10 @@ export class StartComponent implements OnInit {
   ngOnInit(): void {
     this.loadData();
     window.addEventListener('keydown', this.handleKeyDown.bind(this));
+  }
 
+  ngOnDestroy(): void {
+    window.removeEventListener('keydown', this.handleKeyDown, true);
   }
 
   handleKeyDown(event: KeyboardEvent): void {
