@@ -58,3 +58,11 @@
   display: flex;
   justify-content: center;
 }
+
+.ok {
+  background-color: pink;
+}
+
+.ok-div {
+  text-align: center;
+}

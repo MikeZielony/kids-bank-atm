@@ -1,0 +1,18 @@
+<div class="form-control">
+  <input  type="password"   required [(ngModel)]="entryPin">
+</div><br>
+<div class="calculator-keys">
+  <button (click)="key('7')">7</button>
+  <button (click)="key('8')">8</button>
+  <button (click)="key('9')">9</button>
+  <button (click)="key('4')">4</button>
+  <button (click)="key('5')">5</button>
+  <button (click)="key('6')">6</button>
+  <button (click)="key('1')">1</button>
+  <button (click)="key('2')">2</button>
+  <button (click)="key('3')">3</button>
+  <button (click)="key('0')">0</button><br>
+  <button (click)="this.clear()">AC</button> <br>
+</div>
+
+

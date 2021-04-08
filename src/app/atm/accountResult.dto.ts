@@ -4,4 +4,5 @@ export interface IAccountResultDto {
   balance: number;
   cardId: string;
   pin: string;
+  image: string;
 }

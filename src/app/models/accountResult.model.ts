@@ -1,4 +1,4 @@
-import { IAccountResultDto} from './accountResult.dto';
+import { IAccountResultDto} from '../atm/accountResult.dto';
 
 export class AccountResultModel {
   public id: number;
@@ -6,6 +6,7 @@ export class AccountResultModel {
   public balance: number;
   public cardId: string;
   public pin: string;
+  public image: string;
 
   constructor(input: IAccountResultDto) {
     this.id = input.id;
@@ -13,5 +14,6 @@ export class AccountResultModel {
     this.balance = input.balance;
     this.cardId = input.cardId;
     this.pin = input.pin;
+    this.image = input.image;
   }
 }

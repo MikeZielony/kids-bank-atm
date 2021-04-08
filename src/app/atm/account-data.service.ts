@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { StartComponent} from './start/start.component';
-import {map} from 'rxjs/operators';
-import {AccountResultModel} from './accountResult.model';
+import {StartComponent} from './start/start.component';
+import {filter, map} from 'rxjs/operators';
+import {AccountResultModel} from '../models/accountResult.model';
 import {IAccountResultDto} from './accountResult.dto';
 
 @Injectable({
@@ -24,6 +24,5 @@ export class AccountDataService {
         map(results => results.map(result => new AccountResultModel(result)))
       );
   }
-
 }
 

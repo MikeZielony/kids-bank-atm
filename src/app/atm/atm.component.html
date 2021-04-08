@@ -1,34 +1,32 @@
 <div class="header"> {{ name }} date {{ utc }}</div>
 <div class="container">
-  <img class="1" src="./assets/pictures/sara.jpg" width="100" height="100" (click)="this.myfunction('Sara')" />
-
-  <img class="2" src="./assets/pictures/roza.jpg" width="100" height="100" (click)="this.myfunction('Róża')"/>
-
+  <img class="1" src="{{account.image}}" width="100" height="100" />
 </div>
-
+<br>
 <div class="container">
-  <h2> wyplata : {{sum}} </h2>
-  <input hidden type="text" class="form-control" id="name" required [(ngModel)]="sum">
+  <input  type="text" class="form-control" id="name" required [(ngModel)]="sum">
 </div>
-
+<br>
 <div class="calculator-keys">
-  <button (click)="key('7')">7</button>
-  <button (click)="key('8')"> 8</button>
-  <button (click)="key('9')">9</button>
-  <button (click)="key('4')">4</button>
-  <button (click)="key('5')">5</button>
-  <button (click)="key('6')">6</button>
-  <button (click)="key('1')">1</button>
-  <button (click)="key('2')">2</button>
-  <button (click)="key('3')">3</button>
-  <button (click)="key('0')">0</button><br>
-  <button (click)="clear()">AC</button> <br>
+
+    <button (click)="key('7')">7</button>
+    <button (click)="key('8')">8</button>
+    <button (click)="key('9')">9</button>
+    <button (click)="key('4')">4</button>
+    <button (click)="key('5')">5</button>
+    <button (click)="key('6')">6</button>
+    <button (click)="key('1')">1</button>
+    <button (click)="key('2')">2</button>
+    <button (click)="key('3')">3</button>
+    <button (click)="key('0')">0</button><br>
+  <button (click)="this.clear()">AC</button> <br>
+
   <button class="withdraw" (click)="prt()">Wypłać</button>
 </div>
 
 
 
-<div class="result" *ngIf="kid.length != 0">
-  <p>{{kid}} ma na koncie :  {{balance}} PLN  <button (click)="this.speak1()">muf</button></p>
+<div class="result" *ngIf="account">
+  <p>{{account.name}} ma na koncie :  {{account.balance}} PLN  <button (click)="this.speak1()">muf</button></p>
 </div>
 

@@ -3,23 +3,11 @@
 </div><p class="first">Przyłóż swoją kartę</p>
 
 
-<div class="result" *ngIf="kid.length != 0">
-  <p class="second">{{kid}} podaj swoj pin :   </p>
-  <div class="form-control">
-  <input  type="password"   required [(ngModel)]="EntryPin">
-  </div><br>
+<div class="result" *ngIf="account">
+  <p class="second">{{account.name}} podaj swoj pin :   </p>
+
 </div>
-<div class="calculator-keys">
-  <button (click)="key('7')">7</button>
-  <button (click)="key('8')"> 8</button>
-  <button (click)="key('9')">9</button>
-  <button (click)="key('4')">4</button>
-  <button (click)="key('5')">5</button>
-  <button (click)="key('6')">6</button>
-  <button (click)="key('1')">1</button>
-  <button (click)="key('2')">2</button>
-  <button (click)="key('3')">3</button>
-  <button (click)="key('0')">0</button><br>
-  <button (click)="clear()">AC</button> <br>
-  <button class="withdraw" (click)="this.checkPin()">Ok</button>
+<app-num-pad (event)="receivePin($event)"></app-num-pad>
+<div class="ok-div">
+<button *ngIf="this.pin" class="ok" (click)="this.checkPin()">Ok</button>
 </div>

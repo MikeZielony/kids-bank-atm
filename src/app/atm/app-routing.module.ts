@@ -8,7 +8,7 @@ import {AuthGuard} from './auth.guard';
 const routes: Routes = [
   {path: '', redirectTo: '/start', pathMatch: 'full'},
   {
-    path: 'atm',
+    path: 'atm/:id',
     component: AtmComponent,
     canActivate: [AuthGuard],
   },
