@@ -9,26 +9,20 @@ import {Router} from '@angular/router';
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.css']
 })
+
 export class StartComponent implements OnInit, OnDestroy {
 
   buffer = [];
   accountResults: AccountResultModel[] = [];
-  canWithdraw = false;
   withdrawArr: number[];
   prints: string[] = [];
   d = new Date();
   account: AccountResultModel;
   pin = '';
 
-  receivePin($event): void {
-    console.log(this.pin);
-    this.pin = $event;
-  }
-
-
-
   constructor(private accountDataService: AccountDataService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit(): void {
     this.loadData();
@@ -37,6 +31,10 @@ export class StartComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     window.removeEventListener('keydown', this.handleKeyDown, true);
+  }
+
+  receivePin($event): void {
+    this.pin = $event;
   }
 
   handleKeyDown(event: KeyboardEvent): void {
@@ -58,14 +56,6 @@ export class StartComponent implements OnInit, OnDestroy {
     }).shift();
   }
 
-  public myfunction(message: string): void {
-    this.account = this.accountResults.filter((account: AccountResultModel) => {
-      if (message === account.name) {
-        return account;
-      }
-    }).shift();
-  }
-
   private loadData(): void {
     this.accountDataService.getAccountResult()
       .pipe(
@@ -77,10 +67,10 @@ export class StartComponent implements OnInit, OnDestroy {
   }
 
   public checkPin(): void {
-    if (this.pin === this.account.pin ){
+    if (this.pin === this.account.pin) {
       this.accountDataService.isUserLogged = true;
       this.router.navigate([`atm/${this.account.id}`]);
-    }else{
+    } else {
       this.accountDataService.isUserLogged = false;
     }
   }

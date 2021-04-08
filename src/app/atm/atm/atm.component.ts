@@ -4,7 +4,7 @@ import {AccountResultModel} from '../../models/accountResult.model';
 import {take} from 'rxjs/operators';
 import Speech from 'speak-tts';
 import printJS from 'print-js';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class AtmComponent implements OnInit {
   public selectSum: EventEmitter<number> = new EventEmitter<number>();
 
 
-  constructor(private accountDataService: AccountDataService, private route: ActivatedRoute) {
+  constructor(private accountDataService: AccountDataService, private route: ActivatedRoute, private router: Router) {
     this.isTimeForThisComponent = true;
     console.log('construktor');
   }
@@ -75,31 +75,14 @@ export class AtmComponent implements OnInit {
     });
   }
 
-  handleKeyDown(event: KeyboardEvent): void {
-    const enteredKey = event.key.toLowerCase();
-    const acceptedCharMatrix = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'f'];
-    this.buffer = acceptedCharMatrix.includes(enteredKey) ? [...this.buffer, enteredKey] : this.buffer;
-    if (enteredKey === 'enter') {
-      console.log(this.buffer);
-      this.checkCard(this.buffer.join(''));
-    }
-  }
-
-  checkCard(cardNumber: string): void {
-    console.log(cardNumber);
-    this.account = this.accountResults.filter((account: AccountResultModel) => {
-      if (cardNumber === account.cardId) {
-        return account;
-      }
-    }).shift();
-    this.buffer = [];
-  }
-
   public isMoreThan(): boolean {
     return +this.sum > 1000;
   }
 
+
+
   public prt(): void {
+
     if (!this.haveEnoughMoney()) {
       alert('masz tylko : ' + this.account.balance);
     } else if (!this.isDivideBy10()) {
@@ -109,6 +92,7 @@ export class AtmComponent implements OnInit {
       this.withdraw();
       this.getMoney();
       this.sum = '';
+      setTimeout(() => { this.router.navigate([`start`]); }, 10000);
     }
   }
 
