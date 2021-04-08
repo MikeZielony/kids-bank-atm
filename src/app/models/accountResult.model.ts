@@ -1,4 +1,4 @@
-import { IAccountResultDto} from '../atm/accountResult.dto';
+import { IAccountResultDto} from './accountResult.dto';
 
 export class AccountResultModel {
   public id: number;

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {AccountDataService} from './account-data.service';
-import {AccountResultModel} from '../models/accountResult.model';
+import {AccountDataService} from '../services/account-data.service';
+import {AccountResultModel} from '../../models/accountResult.model';
 import {take} from 'rxjs/operators';
 import Speech from 'speak-tts';
 import printJS from 'print-js';
@@ -104,7 +104,7 @@ export class AtmComponent implements OnInit {
       alert('masz tylko : ' + this.account.balance);
     } else if (!this.isDivideBy10()) {
       alert('kwota musi byc wielokrotnością 10pln');
-    } else {
+    } else if (this.sum.length !== 0){
       this.canWithdraw = true;
       this.withdraw();
       this.getMoney();

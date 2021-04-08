@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import {StartComponent} from './start/start.component';
-import {AccountDataService} from './account-data.service';
+import {AccountDataService} from './services/account-data.service';
 
 @Injectable({
   providedIn: 'root'

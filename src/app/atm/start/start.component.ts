@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AccountResultModel} from '../../models/accountResult.model';
-import {AccountDataService} from '../account-data.service';
+import {AccountDataService} from '../services/account-data.service';
 import {take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
@@ -14,12 +14,11 @@ export class StartComponent implements OnInit {
   buffer = [];
   accountResults: AccountResultModel[] = [];
   canWithdraw = false;
-  banknots = [200, 100, 50, 20, 10];
   withdrawArr: number[];
   prints: string[] = [];
   d = new Date();
   account: AccountResultModel;
-  pin = '';  // pobrac wartosc z child component
+  pin = '';
 
   receivePin($event): void {
     console.log(this.pin);
