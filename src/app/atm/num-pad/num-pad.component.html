@@ -1,5 +1,5 @@
 <div class="form-control">
-  <input  type="password"   required [(ngModel)]="entryPin">
+  <input  type="{{type}}"   required [(ngModel)]="entryPin">
 </div><br>
 <div class="calculator-keys">
   <button (click)="key('7')">7</button>
@@ -12,7 +12,8 @@
   <button (click)="key('2')">2</button>
   <button (click)="key('3')">3</button>
   <button (click)="key('0')">0</button><br>
-  <button (click)="this.clear()">AC</button> <br>
+  <button (click)="this.clear()">AC</button>
+  <button (click)="this.sendPin()">Ok</button>
 </div>
 
 

@@ -20,7 +20,8 @@ import { NumPadComponent } from './atm/num-pad/num-pad.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

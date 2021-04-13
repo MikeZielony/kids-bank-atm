@@ -2,27 +2,11 @@
 <div class="container">
   <img class="1" src="{{account.image}}" width="100" height="100" />
 </div>
-<br>
-<div class="container">
-  <input  type="text" class="form-control" id="name" required [(ngModel)]="sum">
-</div>
-<br>
-<div class="calculator-keys">
 
-    <button (click)="key('7')">7</button>
-    <button (click)="key('8')">8</button>
-    <button (click)="key('9')">9</button>
-    <button (click)="key('4')">4</button>
-    <button (click)="key('5')">5</button>
-    <button (click)="key('6')">6</button>
-    <button (click)="key('1')">1</button>
-    <button (click)="key('2')">2</button>
-    <button (click)="key('3')">3</button>
-    <button (click)="key('0')">0</button><br>
-  <button (click)="this.clear()">AC</button> <br>
 
-  <button class="withdraw" (click)="prt()">Wypłać</button>
-</div>
+  <app-num-pad [type]= "type" (event)="receiveCash($event)"></app-num-pad>
+
+  <button ng class="withdraw" (click)="prt()">Wypłać</button>
 
 
 

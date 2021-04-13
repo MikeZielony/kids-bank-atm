@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormTypes} from '../form-types.enum';
 
 @Component({
   selector: 'app-num-pad',
@@ -13,6 +14,9 @@ export class NumPadComponent implements OnInit {
 
   @Output() event = new EventEmitter<string>();
 
+  @Input()
+  type: FormTypes = FormTypes.password;
+
   ngOnInit(): void {
   }
 
@@ -22,7 +26,7 @@ export class NumPadComponent implements OnInit {
 
   public key(value): void {
     this.entryPin += value;
-    if (this.entryPin.length === 4) {
+    if (this.entryPin.length === 4 && this.type === FormTypes.password) {
       this.sendPin();
     }
   }

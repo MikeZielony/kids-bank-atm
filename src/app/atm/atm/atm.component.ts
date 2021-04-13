@@ -1,10 +1,13 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AccountDataService} from '../services/account-data.service';
 import {AccountResultModel} from '../../models/accountResult.model';
 import {take} from 'rxjs/operators';
 import Speech from 'speak-tts';
 import printJS from 'print-js';
 import {ActivatedRoute, Router} from '@angular/router';
+import {FormTypes} from '../form-types.enum';
+import {HttpClient} from '@angular/common/http';
+
 
 
 @Component({
@@ -14,29 +17,24 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class AtmComponent implements OnInit {
 
-  buffer = [];
   name = 'Kids Banka';
   utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
-  isTimeForThisComponent: boolean;
-  sumNumber: number;
   accountResults: AccountResultModel[] = [];
   value: string;
-  canWithdraw = false;
   banknotes = [200, 100, 50, 20, 10];
   withdrawArr: number[];
   prints: string[] = [];
-  d = new Date();
+  date = new Date();
   pin: string;
   account: AccountResultModel;
-  sum = '';
+  sum: number;
+  type: FormTypes = FormTypes.text;
+  withdrawSum: number;
+  actualBalance: number;
+  private errorMessage: 'Error Message';
 
-  @Output()
-  public selectSum: EventEmitter<number> = new EventEmitter<number>();
-
-
-  constructor(private accountDataService: AccountDataService, private route: ActivatedRoute, private router: Router) {
-    this.isTimeForThisComponent = true;
-    console.log('construktor');
+  constructor(private accountDataService: AccountDataService, private route: ActivatedRoute, private router: Router,
+              private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -45,14 +43,18 @@ export class AtmComponent implements OnInit {
     this.getAccount(id);
   }
 
+  receiveCash($event): void {
+    this.sum = +$event;
+  }
+
   public haveEnoughMoney(): boolean {
-    return +this.sum <= this.account.balance;
+    return this.sum <= this.account.balance;
   }
 
   public key(value): void {
-    if ((+this.sum + value) > 1000) {
+    if ((this.sum + value) > 1000) {
       alert('max 1000 pln');
-    } else if (+value === 0 && this.sum.length === 0) {
+    } else if (+value === 0 && this.sum.toString().length === 0) {
       this.clear();
     } else {
       this.sum = this.sum + value;
@@ -60,7 +62,7 @@ export class AtmComponent implements OnInit {
   }
 
   public isDivideBy10(): boolean {
-    return +this.sum % 10 === 0;
+    return this.sum % 10 === 0;
   }
 
   getAccount(id: number): void {
@@ -71,12 +73,11 @@ export class AtmComponent implements OnInit {
           console.log(account);
         }
       });
-      console.log(result);
     });
   }
 
   public isMoreThan(): boolean {
-    return +this.sum > 1000;
+    return this.sum > 1000;
   }
 
 
@@ -87,23 +88,21 @@ export class AtmComponent implements OnInit {
       alert('masz tylko : ' + this.account.balance);
     } else if (!this.isDivideBy10()) {
       alert('kwota musi byc wielokrotnością 10pln');
-    } else if (this.sum.length !== 0){
-      this.canWithdraw = true;
+    } else if (this.sum.toString().length !== 0){
+      this.withdrawSum = this.sum;
       this.withdraw();
       this.getMoney();
-      this.sum = '';
       setTimeout(() => { this.router.navigate([`start`]); }, 10000);
     }
   }
 
   public withdraw(): void {
     this.withdrawArr = [0, 0, 0, 0, 0];
-    this.sumNumber = +this.sum;  // sumNuber ??
     for (let i = 0; i < this.banknotes.length; i++) {
-      if (this.sumNumber >= this.banknotes[i]) {
-        this.withdrawArr[i] = (this.sumNumber - this.sumNumber % this.banknotes[i]) / this.banknotes[i];
+      if (this.sum >= this.banknotes[i]) {
+        this.withdrawArr[i] = (this.sum - this.sum % this.banknotes[i]) / this.banknotes[i];
       }
-      this.sumNumber %= this.banknotes[i];
+      this.sum %= this.banknotes[i];
     }
   }
 
@@ -115,10 +114,20 @@ export class AtmComponent implements OnInit {
     }
 
     printJS({
-      printable: this.prints, type: 'image', header: 'Wypłata : ' + this.sum + '  ' + this.d,
+      printable: this.prints, type: 'image', header: 'Wypłata : ' + this.withdrawSum + '  ' + this.date,
       imageStyle: 'width:50%;margin-bottom:20px;'
     });
+    console.log(this.sum);
+    this.correctBalance();
     this.prints = [];
+    this.clear();
+  }
+
+  private correctBalance(): void {
+    this.actualBalance = this.account.balance - this.withdrawSum;
+    this.http.patch<AccountResultModel>('http://localhost:3000/accounts/1/', {balance: this.actualBalance})
+     .subscribe(data => {this.account.balance = this.actualBalance;
+                         console.log(data); });
   }
 
   private loadData(): void {
@@ -150,7 +159,7 @@ export class AtmComponent implements OnInit {
   }
 
   public clear(): void {
-    this.sum = '';
+    this.sum = 0;
   }
 
 }

@@ -19,7 +19,7 @@ export class AccountDataService {
   public isUserLogged = false;
 
   public getAccountResult(): Observable<AccountResultModel[]> {
-    return this.http.get<IAccountResultDto[]>('./assets/jsons/accounts.json')
+    return this.http.get<IAccountResultDto[]>('http://localhost:3000/accounts/')
       .pipe(
         map(results => results.map(result => new AccountResultModel(result)))
       );
