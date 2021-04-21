@@ -1,16 +1,17 @@
-<div class="header"> {{ name }} date {{ utc }}</div>
-<div class="container">
-  <img class="1" src="{{account.image}}" width="100" height="100" />
-</div>
-
-
-  <app-num-pad [type]= "type" (event)="receiveCash($event)"></app-num-pad>
-
-  <button ng class="withdraw" (click)="prt()">Wypłać</button>
-
-
-
-<div class="result" *ngIf="account">
+<button  type="button" class="TR" routerLink="/start">X</button>
+<div class="header"> {{ name }} date {{ utc }}
   <p>{{account.name}} ma na koncie :  {{account.balance}} PLN  <button (click)="this.speak1()">muf</button></p>
 </div>
+<div class="container">
+  <img class="image" src="{{account.image}}" width="100" height="100" />
+</div>
+
+
+  <app-num-pad [type]="type" [pinPadValue]="sum" (event)="receiveCash($event)" (clear)="clear()"></app-num-pad>
+<div class="withdraw-dvi">
+  <button ng class="withdraw" (click)="prt()">Wypłać</button>
+</div>
+
+
+
 

@@ -21,7 +21,7 @@ import { NumPadComponent } from './atm/num-pad/num-pad.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

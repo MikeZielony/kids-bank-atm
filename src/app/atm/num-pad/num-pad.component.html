@@ -1,5 +1,5 @@
 <div class="form-control">
-  <input  type="{{type}}"   required [(ngModel)]="entryPin">
+  <input class="window" type="{{type}}" disabled [ngModel]="pinPadValue">
 </div><br>
 <div class="calculator-keys">
   <button (click)="key('7')">7</button>
@@ -11,9 +11,9 @@
   <button (click)="key('1')">1</button>
   <button (click)="key('2')">2</button>
   <button (click)="key('3')">3</button>
-  <button (click)="key('0')">0</button><br>
-  <button (click)="this.clear()">AC</button>
-  <button (click)="this.sendPin()">Ok</button>
+  <button (click)="this.key('0')">0</button>
+  <br>
+  <button (click)="this.onClear()">AC</button>
 </div>
 
 

@@ -20,7 +20,7 @@ export class StartComponent implements OnInit, OnDestroy {
   account: AccountResultModel;
   pin = '';
 
-  constructor(private accountDataService: AccountDataService,
+  constructor(public accountDataService: AccountDataService,
               private router: Router) {
   }
 
@@ -33,8 +33,13 @@ export class StartComponent implements OnInit, OnDestroy {
     window.removeEventListener('keydown', this.handleKeyDown, true);
   }
 
-  receivePin($event): void {
-    this.pin = $event;
+  receivePin(value: string): void {
+    if (this.accountDataService.entryPin.length < 4) {
+      this.accountDataService.entryPin += value;
+    }
+    if (this.accountDataService.entryPin.length === 4) {
+      this.pin = this.accountDataService.entryPin;
+    }
   }
 
   handleKeyDown(event: KeyboardEvent): void {
@@ -42,7 +47,6 @@ export class StartComponent implements OnInit, OnDestroy {
     const acceptedCharMatrix = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'f'];
     this.buffer = acceptedCharMatrix.includes(enteredKey) ? [...this.buffer, enteredKey] : this.buffer;
     if (enteredKey === 'enter') {
-      console.log(this.buffer);
       this.checkCard(this.buffer.join(''));
     }
   }
@@ -70,8 +74,16 @@ export class StartComponent implements OnInit, OnDestroy {
     if (this.pin === this.account.pin) {
       this.accountDataService.isUserLogged = true;
       this.router.navigate([`atm/${this.account.id}`]);
+      this.accountDataService.entryPin = '';
     } else {
       this.accountDataService.isUserLogged = false;
+      this.accountDataService.isPinFalse = true;
+      this.accountDataService.entryPin = '';
     }
+  }
+
+  public clearPin(): void {
+    this.accountDataService.entryPin = '';
+    this.accountDataService.isPinFalse = false;
   }
 }

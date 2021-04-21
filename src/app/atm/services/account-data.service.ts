@@ -17,6 +17,9 @@ export class AccountDataService {
   }
 
   public isUserLogged = false;
+  public isPinFalse = false;
+  public entryPin = '';
+
 
   public getAccountResult(): Observable<AccountResultModel[]> {
     return this.http.get<IAccountResultDto[]>('http://localhost:3000/accounts/')

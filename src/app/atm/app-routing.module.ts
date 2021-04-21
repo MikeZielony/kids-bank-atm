@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {AtmComponent} from './atm/atm.component';
 import {StartComponent} from './start/start.component';

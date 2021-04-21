@@ -5,15 +5,17 @@
 
 .header {
   color: hotpink;
-  font-size: 8vw;
+  font-size: 2vw;
   text-align: center;
 }
+
 .container {
 
   display: flex;
   justify-content: center;
   justify-content: center;
 }
+
 .calculator-keys {
   width: 150px;
   margin: 0 auto;
@@ -22,6 +24,7 @@
   grid-row-gap: 20px;
   grid-column-gap: 20px;
 }
+
 .calculator-keys button {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -36,9 +39,11 @@
   padding: 8px 12px;
   text-decoration: none;
 }
+
 .calculator-keys button:hover {
   background: palevioletred;
 }
+
 .calculator-keys button:active {
   background: darkblue;
 }
@@ -50,10 +55,36 @@
 .calculator-keys button.withdraw:hover {
   background: palevioletred;
 }
+
 .calculator-keys button.withdraw:active {
   background: darkblue;
 }
+
 input {
   text-align: center;
 }
 
+.withdraw {
+  background-color: darkgreen;
+  width: 250px;
+  height: 100px;
+  margin-top: 30px;
+  font-size: 50px;
+  color: #FFFFFF;
+}
+
+.withdraw-dvi {
+  text-align: center;
+}
+
+.image {
+  margin-bottom: 30px;
+  border-radius: 30px;
+}
+
+.TR {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 18px
+}

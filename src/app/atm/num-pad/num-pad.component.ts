@@ -1,37 +1,46 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormTypes} from '../form-types.enum';
+import {AccountDataService} from '../services/account-data.service';
+
 
 @Component({
   selector: 'app-num-pad',
   templateUrl: './num-pad.component.html',
   styleUrls: ['./num-pad.component.css']
 })
-export class NumPadComponent implements OnInit {
+export class NumPadComponent {
 
-  entryPin = '';
+  constructor(public accountDataService: AccountDataService) {
 
-  constructor() { }
+  }
 
-  @Output() event = new EventEmitter<string>();
+  @Output() event: EventEmitter<string> = new EventEmitter<string>();
+  @Output() clear: EventEmitter<void> = new EventEmitter<void>();
 
   @Input()
   type: FormTypes = FormTypes.password;
 
-  ngOnInit(): void {
-  }
-
-  sendPin(): void {
-    this.event.emit(this.entryPin);
-  }
-
-  public key(value): void {
-    this.entryPin += value;
-    if (this.entryPin.length === 4 && this.type === FormTypes.password) {
-      this.sendPin();
+  @Input()
+  set pinPadValue(value: string | number) {
+    if (this.type === FormTypes.text) {
+      this._pinPadValue = +value === 0 ? '' : value;
+      return;
     }
+    this._pinPadValue = value;
   }
 
-  public clear(): void {
-    this.entryPin = '';
+  get pinPadValue(): string | number {
+    return this._pinPadValue;
   }
+
+  private _pinPadValue;
+
+  public key(value: string): void {
+    this.event.emit(value);
+  }
+
+  public onClear(): void {
+    this.clear.emit();
+  }
+
 }
