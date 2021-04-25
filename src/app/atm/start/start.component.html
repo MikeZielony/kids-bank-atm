@@ -1,0 +1,11 @@
+<h1 class="first">Przyłóż swoją kartę</h1>
+
+<div class="result" *ngIf="account">
+  <h1 *ngIf="!accountDataService.isPinFalse" style="color: yellow" class="second">{{account.name}} Pin i Zielony</h1>
+  <h1 *ngIf="accountDataService.isPinFalse" style="color: yellow" class="second">{{account.name}} Błędny PIN</h1>
+</div>
+<app-num-pad  [pinPadValue]="accountDataService.entryPin" (event)="receivePin($event)"
+             (clear)="clearPin()"></app-num-pad>
+<div class="ok-div">
+  <button *ngIf="this.pin" class="ok" (click)="this.checkPin()">Ok</button>
+</div>
