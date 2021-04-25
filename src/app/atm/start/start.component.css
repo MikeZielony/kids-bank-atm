@@ -6,6 +6,7 @@
   grid-row-gap: 20px;
   grid-column-gap: 20px;
 }
+
 .calculator-keys button {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -20,9 +21,11 @@
   padding: 8px 12px;
   text-decoration: none;
 }
+
 .calculator-keys button:hover {
   background: palevioletred;
 }
+
 .calculator-keys button:active {
   background: darkblue;
 }
@@ -34,6 +37,7 @@
 .calculator-keys button.withdraw:hover {
   background: palevioletred;
 }
+
 .calculator-keys button.withdraw:active {
   background: darkblue;
 }

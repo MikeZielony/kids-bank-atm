@@ -19,6 +19,7 @@ export class StartComponent implements OnInit, OnDestroy {
   d = new Date();
   account: AccountResultModel;
   pin = '';
+  isCardTouch = false;
 
   constructor(public accountDataService: AccountDataService,
               private router: Router) {
@@ -48,6 +49,7 @@ export class StartComponent implements OnInit, OnDestroy {
     this.buffer = acceptedCharMatrix.includes(enteredKey) ? [...this.buffer, enteredKey] : this.buffer;
     if (enteredKey === 'enter') {
       this.checkCard(this.buffer.join(''));
+      this.isCardTouch = true;
     }
   }
 

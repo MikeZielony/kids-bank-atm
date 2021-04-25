@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Sara",
-      "balance": 5080,
+      "balance": 9055,
       "cardId": "a304551f",
       "pin": "7777",
       "image": "./assets/pictures/sara.jpg"
@@ -11,7 +11,7 @@
     {
       "id": 2,
       "name": "Róża",
-      "balance": 2005,
+      "balance": 10975,
       "cardId": "a220806",
       "pin": "1234",
       "image": "./assets/pictures/roza.jpg"

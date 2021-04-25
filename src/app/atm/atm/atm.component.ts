@@ -16,14 +16,24 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AtmComponent implements OnInit {
 
-  name = 'Kids Banka';
+  formatter = new Intl.DateTimeFormat('pl',
+    {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    }
+  );
+  name = 'KiddyBank';
   utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
   accountResults: AccountResultModel[] = [];
   value: string;
   banknotes = [200, 100, 50, 20, 10];
   withdrawArr: number[];
   prints: string[] = [];
-  date = new Date();
+  date = this.formatter.format(new Date());
   pin: string;
   account: AccountResultModel;
   sum: number;
@@ -109,7 +119,7 @@ export class AtmComponent implements OnInit {
     }
 
     printJS({
-      printable: this.prints, type: 'image', header: 'Wypłata : ' + this.withdrawSum + '  ' + this.date,
+      printable: this.prints, type: 'image', header: `${this.account.name}  wypłaciła   kwotę  : ${this.withdrawSum} PLN   ${this.date}`,
       imageStyle: 'width:50%;margin-bottom:20px;'
     });
     this.correctBalance();
@@ -119,7 +129,7 @@ export class AtmComponent implements OnInit {
 
   private correctBalance(): void {
     this.actualBalance = this.account.balance - this.withdrawSum;
-    this.http.patch<AccountResultModel>('http://localhost:3000/accounts/1/', {balance: this.actualBalance})
+    this.http.patch<AccountResultModel>('http://localhost:3000/accounts/' + this.account.id + '/', {balance: this.actualBalance})
       .subscribe(data => {
         this.account.balance = this.actualBalance;
       });
